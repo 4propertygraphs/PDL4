@@ -1,0 +1,12 @@
+{
+  "name": "playwright-scraper",
+  "version": "1.0.0",
+  "description": "Headless scraper for property pages, used for AI delta comparison.",
+  "main": "scrape.js",
+  "scripts": {
+    "scrape": "node scrape.js"
+  },
+  "dependencies": {
+    "playwright": "^1.44.0"
+  }
+}

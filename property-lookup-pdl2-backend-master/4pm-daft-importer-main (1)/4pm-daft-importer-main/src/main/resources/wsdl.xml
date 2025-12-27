@@ -1,0 +1,1286 @@
+<wsdl:definitions 
+     xmlns:impl='http://nginx/v2/'
+     xmlns:intf='http://nginx/v2/'
+     xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/' 
+     xmlns:wsdlsoap='http://schemas.xmlsoap.org/wsdl/soap/' 
+     xmlns:xsd='http://www.w3.org/2001/XMLSchema' 
+     targetNamespace='http://nginx/v2/'>
+  <wsdl:types>
+     <schema elementFormDefault='qualified' 
+          xmlns:impl='http://nginx/v2/'
+          xmlns:intf='http://nginx/v2/'
+          xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/' 
+          xmlns="http://www.w3.org/2001/XMLSchema" 
+          targetNamespace='http://nginx/v2/' >
+    
+            <!-- test {{{ -->
+            <element name='test'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key' type='xsd:string' />
+                    </sequence>
+                </complexType>
+            </element>
+            
+            <element name='testResponse'>
+                <complexType>
+                    <sequence>
+                        <element name='status' type='xsd:string' />
+                    </sequence>
+                </complexType>
+            </element>
+            <!-- }}} -->
+            
+            <!-- ad_types {{{ -->
+            <element name='ad_types'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key' type='xsd:string' />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <element name="ad_typesResponse">
+                <complexType>
+                    <sequence>
+                        <element name='ad_types' type='impl:ad_type' maxOccurs="unbounded" />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <complexType name="ad_type">
+                <sequence>
+                    <element name='name'           type='xsd:string' />
+                    <element name='desc'           type='xsd:string' />
+                    <element name='desc_plural'    type='xsd:string' />
+                    <element name='desc_short'     type='xsd:string' />
+                </sequence>
+            </complexType>
+            <!-- }}} -->
+    
+            <!-- features {{{ -->
+            <element name='features'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key' type='xsd:string' />
+                        <element name='ad_type' type='xsd:string' />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <element name="featuresResponse">
+                <complexType>
+                    <sequence>
+                        <element name='features' type='impl:feature' maxOccurs="unbounded" />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <complexType name="feature">
+                <sequence>
+                    <element name='id'    type='xsd:integer' />
+                    <element name='name'  type='xsd:string' />
+                </sequence>
+            </complexType>
+             <!-- }}} -->
+    
+            <!-- property_types {{{ -->
+            <element name='property_types'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key' type='xsd:string' />
+                        <element name='ad_type' type='xsd:string' />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <element name="property_typesResponse">
+                <complexType>
+                    <sequence>
+                        <element name='property_types' type='impl:property_type' maxOccurs="unbounded" />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <complexType name="property_type">
+                <sequence>
+                    <element name='name'            type='xsd:string' />
+                    <element name='plural'          type='xsd:string' />
+                    <element name='short'           type='xsd:string' />
+                    <element name='short_plural'    type='xsd:string' />
+                    <element name='key'             type='xsd:string' />
+                </sequence>
+            </complexType>
+             <!-- }}} -->
+    
+            <!-- areas {{{ -->
+            <element name='areas'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key'         type='xsd:string' />
+                        <element name='area_type'       type='xsd:string' />
+                        <element name='ad_type'         type='xsd:string' nillable="true"/>
+                        <element name='county'          type='xsd:integer' minOccurs="0" maxOccurs="unbounded"/>
+                        <element name='city'            type='xsd:integer' minOccurs="0" maxOccurs="unbounded"/>
+                        <element name='general'         type='xsd:integer' minOccurs="0" maxOccurs="unbounded"/>
+                        <element name='include_empty'   type='xsd:boolean' nillable="true"/>
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <element name="areasResponse">
+                <complexType>
+                    <sequence>
+                        <element name='areas' type='impl:area' maxOccurs="unbounded" />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <complexType name="area">
+                <sequence>
+                    <element name='id'           type='xsd:integer' />
+                    <element name='name'         type='xsd:string' />
+                    <element name='properties'   type='xsd:integer' />
+                </sequence>
+            </complexType>
+             <!-- }}} -->
+    
+            <!-- media {{{ -->
+            <element name='media'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key'  type='xsd:string' />
+                        <element name='ad_type'  type='xsd:string' />
+                        <element name='ad_id'    type='xsd:integer' />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <element name="mediaResponse">
+                <complexType>
+                    <sequence>
+                        <element name='media' type='impl:media' />
+                    </sequence>
+                </complexType>
+            </element>
+
+            <complexType name="media">
+                <sequence>
+                    <element name='ad_type'         type='xsd:string' />
+                    <element name='ad_id'           type='xsd:integer' />
+                    <element name='images'          type='impl:image' maxOccurs="unbounded" />
+                    <element name='virtualtours'    type='impl:virtualtour' maxOccurs="unbounded" />
+                    <element name='documents'       type='impl:document' maxOccurs="unbounded" />
+                </sequence>
+            </complexType>
+    
+            <complexType name="image">
+                <sequence>
+                    <element name="caption"             type="xsd:string" nillable="true"/>
+                    <element name="large_url"           type="xsd:string" nillable="true"/>
+                    <element name="medium_url"          type="xsd:string" nillable="true"/>
+                    <element name="iphone_url"          type="xsd:string" nillable="true"/>
+                    <element name="ipad_search_url"     type="xsd:string" nillable="true"/>
+                    <element name="ipad_gallery_url"    type="xsd:string" nillable="true"/>
+                    <element name="small_url"           type="xsd:string" nillable="true"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="virtualtour">
+                <sequence>
+                    <element name="caption"  type="xsd:string" nillable="true"/>
+                    <element name="url"      type="xsd:string" nillable="true"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="document">
+                <sequence>
+                    <element name="caption"  type="xsd:string" nillable="true"/>
+                    <element name="url"      type="xsd:string" nillable="true"/>
+                </sequence>
+            </complexType>
+             <!-- }}} -->
+            
+            <!-- searching {{{ -->
+            <complexType name="pagination">
+                <sequence>
+                    <element name="total_results"     type="xsd:integer" nillable="true"/>
+                    <element name="results_per_page"  type="xsd:integer" nillable="true"/>
+                    <element name="num_pages"         type="xsd:integer" nillable="true"/>
+                    <element name="current_page"      type="xsd:integer" nillable="true"/>
+                    <element name="first_on_page"     type="xsd:integer" nillable="true"/>
+                    <element name="last_on_page"      type="xsd:integer" nillable="true"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="search_query">
+                <all>
+                    <!-- Main -->
+                    <element name="ad_ids"          type="xsd:integer" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="property_type"   type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="house_type"      type="xsd:string" nillable="true"/>
+                    <element name="bedrooms"        type="xsd:integer" nillable="true"/>
+                    <element name="min_bedrooms"    type="xsd:integer" nillable="true"/>
+                    <element name="max_bedrooms"    type="xsd:integer" nillable="true"/>
+                    <element name="min_price"       type="xsd:integer" nillable="true"/>
+                    <element name="max_price"       type="xsd:integer" nillable="true"/>
+                    <element name="txt"             type="xsd:string" nillable="true"/>
+                    <element name="agreed"          type="xsd:integer" nillable="true"/>
+                    <element name="days_old"        type="xsd:integer" nillable="true"/>
+                    <element name="images"          type="xsd:integer" nillable="true"/>
+                    <element name="agent_id"        type="xsd:integer" nillable="true"/>
+                    <element name="institute_id"    type="xsd:integer" nillable="true"/>
+                    <element name="edited_since"    type="xsd:integer" nillable="true"/>
+                    
+                    <!-- Rental specific -->
+                    <element name="features"               type="xsd:integer" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="available_date"         type="xsd:integer" nillable="true"/>
+                    <element name="lease_length"           type="xsd:integer" nillable="true"/>
+                    <element name="furnished"              type="xsd:integer" nillable="true"/>
+                    <element name="rent_allowance"         type="xsd:integer" nillable="true"/>
+                    <element name="single_beds"            type="xsd:integer" nillable="true"/>
+                    <element name="double_beds"            type="xsd:integer" nillable="true"/>
+                    <element name="twin_beds"              type="xsd:integer" nillable="true"/>
+                    
+                    <!-- Sharing specific -->
+                    <element name="bedroom_type"     type="xsd:string" nillable="true" />
+                    <element name="owner_occupied"   type="xsd:integer" nillable="true" />
+                    <element name="occupants"        type="xsd:integer" nillable="true" />
+                    <element name="gender"           type="xsd:string" nillable="true" />
+                    <element name="couples_allowed"  type="xsd:integer" nillable="true" />
+                    <element name="available_for"    type="xsd:string" nillable="true" />
+                    
+                    <!-- Commercial specific -->
+                    <element name="min_sq_ft"      type="xsd:integer" nillable="true"/>
+                    <element name="max_sq_ft"      type="xsd:integer" nillable="true"/>
+                    <element name="contract_type"  type="xsd:integer" nillable="true"/>
+                    
+                    <!-- Shortterm specific -->
+                    <element name="sleeps_number"  type="xsd:integer" nillable="true" />
+
+                    <!-- Location -->
+                    <element name="counties"        type="xsd:integer" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="cities"          type="xsd:integer" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="general_areas"   type="xsd:integer" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="areas"           type="xsd:integer" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="postcodes"       type="xsd:integer" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="address"         type="xsd:string" nillable="true"/>
+                    <element name="country"         type="xsd:string" nillable="true"/>
+                    
+                    <!-- Pagination -->
+                    <element name="perpage"  type="xsd:integer" nillable="true"/>
+                    <element name="page"     type="xsd:integer" nillable="true"/>
+                    
+                    <!-- Sorting -->
+                    <element name="sort_by"                    type="xsd:string" nillable="true"/>
+                    <element name="sort_ascending"             type="xsd:boolean" nillable="true"/>
+                    <element name="distance_sort_latitude"     type="xsd:float" nillable="true"/>
+                    <element name="distance_sort_longitude"    type="xsd:float" nillable="true"/>
+                    
+                </all>
+            </complexType>
+            <!-- }}} -->
+
+            <!-- search_sale {{{ -->
+            <element name='search_sale'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key' type='xsd:string' />
+                        <element name='query'   type='impl:search_query' />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <element name="search_saleResponse">
+                <complexType>
+                    <sequence>
+                        <element name='results' type='impl:sale_results' />
+                    </sequence>
+                </complexType>
+            </element>
+
+            <complexType name="sale_results">
+                <sequence>
+                    <element name='search_sentence'  type='xsd:string' />
+                    <element name='pagination'       type='impl:pagination' />
+                    <element name='ads'              type='impl:sale_ad' minOccurs="0" maxOccurs="unbounded" />
+                </sequence>
+            </complexType>
+    
+            <complexType name="sale_ad">
+                <sequence>
+                    <xsd:element name="ad_id"                  type="xsd:integer" nillable="true"/>
+                    <xsd:element name="daft_url"               type="xsd:string" nillable="true"/>
+                    <xsd:element name="property_type"          type="xsd:string" nillable="true"/>
+                    <xsd:element name="house_type"             type="xsd:string" nillable="true"/>
+                    <xsd:element name="selling_type"           type="xsd:string" nillable="true"/>
+                    <xsd:element name="price_type"             type="xsd:string" nillable="true"/>
+                    <xsd:element name="agreed"                 type="xsd:integer" nillable="true"/>
+                    <xsd:element name="priority"               type="xsd:integer" nillable="true"/>
+                    <xsd:element name="description"            type="xsd:string" nillable="true"/>
+                    <xsd:element name="price"                  type="xsd:integer" nillable="true"/>
+                    <xsd:element name="bedrooms"               type="xsd:integer" nillable="true"/>
+                    <xsd:element name="bathrooms"              type="xsd:integer" nillable="true"/>
+                    <xsd:element name="tax_section"            type="xsd:string" nillable="true"/>
+                    <xsd:element name="square_metres"          type="xsd:float" nillable="true"/>
+                    <xsd:element name="acres"                  type="xsd:float" nillable="true"/>
+                    <xsd:element name="features"               type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
+                    <xsd:element name="ber_rating"             type="xsd:string" nillable="true" />
+                    <xsd:element name="ber_code"               type="xsd:string" nillable="true" />
+                    <xsd:element name="ber_epi"                type="xsd:float" nillable="true" />
+                    <xsd:element name="address"                type="xsd:string" nillable="true"/>
+                    <xsd:element name="full_address"           type="xsd:string" nillable="true"/>
+                    <xsd:element name="area"                   type="xsd:string" nillable="true"/>
+                    <xsd:element name="county"                 type="xsd:string" nillable="true"/>
+                    <xsd:element name="city"                   type="xsd:string" nillable="true"/>
+                    <xsd:element name="general_area"           type="xsd:string" nillable="true"/>
+                    <xsd:element name="postcode"               type="xsd:string" nillable="true"/>
+                    <xsd:element name="latitude"               type="xsd:float" nillable="true"/>
+                    <xsd:element name="longitude"              type="xsd:float" nillable="true"/>
+                    <xsd:element name="latlon_accuracy"        type="xsd:integer" nillable="true"/>
+                    <xsd:element name="agency_name"            type="xsd:string" nillable="true"/>
+                    <xsd:element name="contact_name"           type="xsd:string" nillable="true"/>
+                    <xsd:element name="phone1"                 type="xsd:string" nillable="true"/>
+                    <xsd:element name="phone2"                 type="xsd:string" nillable="true"/>
+                    <xsd:element name="phoneinfo"              type="xsd:string" nillable="true"/>
+                    <xsd:element name="main_email"             type="xsd:string" nillable="true"/>
+                    <xsd:element name="auction_address"        type="xsd:string" nillable="true"/>
+                    <xsd:element name="start_date"             type="xsd:integer" nillable="true"/>
+                    <xsd:element name="listing_date"           type="xsd:integer" nillable="true"/>
+                    <xsd:element name="agreed_date"            type="xsd:integer" nillable="true"/>
+                    <xsd:element name="auction_date"           type="xsd:integer" nillable="true"/>
+                    <xsd:element name="small_thumbnail_url"    type="xsd:string" nillable="true"/>
+                    <xsd:element name="medium_thumbnail_url"   type="xsd:string" nillable="true"/>
+                    <xsd:element name="large_thumbnail_url"    type="xsd:string" nillable="true"/>
+                    <xsd:element name="ipad_search_url"        type="xsd:string" nillable="true"/>
+                    <xsd:element name="ipad_gallery_url"       type="xsd:string" nillable="true"/>
+                    <xsd:element name="tags"                   type="xsd:integer" nillable="true"/>
+
+                </sequence>
+            </complexType>
+             <!-- }}} -->
+    
+            <!-- search_rental {{{ -->
+            <element name='search_rental'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key' type='xsd:string' />
+                        <element name='query'   type='impl:search_query' />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <element name="search_rentalResponse">
+                <complexType>
+                    <sequence>
+                        <element name='results' type='impl:rental_results' />
+                    </sequence>
+                </complexType>
+            </element>
+
+            <complexType name="rental_results">
+                <sequence>
+                    <element name='search_sentence'  type='xsd:string' />
+                    <element name='pagination'       type='impl:pagination' />
+                    <element name='ads'              type='impl:rental_ad' minOccurs="0" maxOccurs="unbounded" />
+                </sequence>
+            </complexType>
+    
+            <complexType name="rental_ad">
+                <sequence>
+                    <xsd:element name="ad_id"                      type="xsd:integer" nillable="true"/>
+                    <xsd:element name="daft_url"                   type="xsd:string" nillable="true"/>
+                    <xsd:element name="property_type"              type="xsd:string" nillable="true"/>
+                    <xsd:element name="agreed"                     type="xsd:integer" nillable="true"/>
+                    <xsd:element name="priority"                   type="xsd:integer" nillable="true"/>
+                    <xsd:element name="description"                type="xsd:string" nillable="true"/>
+                    <xsd:element name="bedrooms"                   type="xsd:integer" nillable="true"/>
+                    <xsd:element name="bathrooms"                  type="xsd:integer" nillable="true"/>
+                    <xsd:element name="rent"                       type="xsd:integer" nillable="true"/>
+                    <xsd:element name="rent_collection_period"     type="xsd:string" nillable="true"/>
+                    <xsd:element name="furnished"                  type="xsd:integer" nillable="true"/>
+                    <xsd:element name="features"                   type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="single_beds"                type="xsd:integer" nillable="true"/>
+                    <xsd:element name="double_beds"                type="xsd:integer" nillable="true"/>
+                    <xsd:element name="twin_beds"                  type="xsd:integer" nillable="true"/>
+                    <xsd:element name="lease_length"               type="xsd:integer" nillable="true"/>
+                    <xsd:element name="rent_allowance"             type="xsd:integer" nillable="true"/>
+                    <xsd:element name="ber_rating"                 type="xsd:string" nillable="true" />
+                    <xsd:element name="ber_code"                   type="xsd:string" nillable="true" />
+                    <xsd:element name="ber_epi"                    type="xsd:float" nillable="true" />
+                    <xsd:element name="address"                    type="xsd:string" nillable="true"/>
+                    <xsd:element name="full_address"               type="xsd:string" nillable="true"/>
+                    <xsd:element name="area"                       type="xsd:string" nillable="true"/>
+                    <xsd:element name="county"                     type="xsd:string" nillable="true"/>
+                    <xsd:element name="city"                       type="xsd:string" nillable="true"/>
+                    <xsd:element name="general_area"               type="xsd:string" nillable="true"/>
+                    <xsd:element name="postcode"                   type="xsd:string" nillable="true"/>
+                    <xsd:element name="latitude"                   type="xsd:float" nillable="true"/>
+                    <xsd:element name="longitude"                  type="xsd:float" nillable="true"/>
+                    <xsd:element name="latlon_accuracy"            type="xsd:integer" nillable="true"/>
+                    <xsd:element name="agency_name"                type="xsd:string" nillable="true"/>
+                    <xsd:element name="contact_name"               type="xsd:string" nillable="true"/>
+                    <xsd:element name="phone1"                     type="xsd:string" nillable="true"/>
+                    <xsd:element name="phone2"                     type="xsd:string" nillable="true"/>
+                    <xsd:element name="phoneinfo"                  type="xsd:string" nillable="true"/>
+                    <xsd:element name="main_email"                 type="xsd:string" nillable="true"/>
+                    <xsd:element name="start_date"                 type="xsd:integer" nillable="true"/>
+                    <xsd:element name="listing_date"               type="xsd:integer" nillable="true"/>
+                    <xsd:element name="agreed_date"                type="xsd:integer" nillable="true"/>
+                    <xsd:element name="available_date"             type="xsd:integer" nillable="true"/>
+                    <xsd:element name="start_pay_date"             type="xsd:integer" nillable="true"/>
+                    <xsd:element name="small_thumbnail_url"        type="xsd:string" nillable="true"/>
+                    <xsd:element name="medium_thumbnail_url"       type="xsd:string" nillable="true"/>
+                    <xsd:element name="large_thumbnail_url"        type="xsd:string" nillable="true"/>
+                    <xsd:element name="ipad_search_url"            type="xsd:string" nillable="true"/>
+                    <xsd:element name="ipad_gallery_url"           type="xsd:string" nillable="true"/>
+                    <xsd:element name="tags"                       type="xsd:integer" nillable="true"/>
+                </sequence>
+            </complexType>
+             <!-- }}} -->
+    
+            <!-- search_commercial {{{ -->
+            <element name='search_commercial'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key'  type='xsd:string' />
+                        <element name='query'    type='impl:search_query' />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <element name="search_commercialResponse">
+                <complexType>
+                    <sequence>
+                        <element name='results' type='impl:commercial_results' />
+                    </sequence>
+                </complexType>
+            </element>
+
+            <complexType name="commercial_results">
+                <sequence>
+                    <element name='search_sentence'  type='xsd:string' />
+                    <element name='pagination'       type='impl:pagination' />
+                    <element name='ads'              type='impl:commercial_ad' minOccurs="0" maxOccurs="unbounded" />
+                </sequence>
+            </complexType>
+    
+            <complexType name="commercial_ad">
+                <sequence>
+                    <element name="ad_id"                       type="xsd:integer" nillable="true"/>
+                    <element name="daft_url"                    type="xsd:string" nillable="true"/>
+                    <element name="property_type"               type="xsd:string" nillable="true"/>
+                    <element name="agreed"                      type="xsd:integer" nillable="true"/>
+                    <element name="priority"                    type="xsd:integer" nillable="true"/>
+                    <element name="description"                 type="xsd:string" nillable="true"/>
+                    <element name="rent"                        type="xsd:integer" nillable="true"/>
+                    <element name="rent_collection_period"      type="xsd:string" nillable="true"/>
+                    <element name="features"                    type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="address"                     type="xsd:string" nillable="true"/>
+                    <element name="full_address"                type="xsd:string" nillable="true"/>
+                    <element name="area"                        type="xsd:string" nillable="true"/>
+                    <element name="county"                      type="xsd:string" nillable="true"/>
+                    <element name="city"                        type="xsd:string" nillable="true"/>
+                    <element name="general_area"                type="xsd:string" nillable="true"/>
+                    <element name="postcode"                    type="xsd:string" nillable="true"/>
+                    <element name="latitude"                    type="xsd:float" nillable="true"/>
+                    <element name="longitude"                   type="xsd:float" nillable="true"/>
+                    <element name="latlon_accuracy"             type="xsd:integer" nillable="true"/>
+                    <element name="agency_name"                 type="xsd:string" nillable="true"/>
+                    <element name="contact_name"                type="xsd:string" nillable="true"/>
+                    <element name="phone1"                      type="xsd:string" nillable="true"/>
+                    <element name="phone2"                      type="xsd:string" nillable="true"/>
+                    <element name="phoneinfo"                   type="xsd:string" nillable="true"/>
+                    <element name="main_email"                  type="xsd:string" nillable="true"/>
+                    <element name="start_date"                  type="xsd:integer" nillable="true"/>
+                    <element name="listing_date"                type="xsd:integer" nillable="true"/>
+                    <element name="agreed_date"                 type="xsd:integer" nillable="true"/>
+                    <element name="available_date"              type="xsd:integer" nillable="true"/>
+                    <element name="small_thumbnail_url"         type="xsd:string" nillable="true"/>
+                    <element name="medium_thumbnail_url"        type="xsd:string" nillable="true"/>
+                    <element name="large_thumbnail_url"         type="xsd:string" nillable="true"/>
+                    <element name="ipad_search_url"             type="xsd:string" nillable="true"/>
+                    <element name="ipad_gallery_url"            type="xsd:string" nillable="true"/>
+                    <element name="tags"                        type="xsd:integer" nillable="true"/>
+
+                    <element name="price"             type="xsd:integer" nillable="true"/>
+                    <element name="sq_ft"             type="xsd:integer" nillable="true"/>
+                    <element name="people"            type="xsd:integer" nillable="true"/>
+                    <element name="start_pay_date"    type="xsd:integer" nillable="true"/>
+                    <element name="auction_address"   type="xsd:string" nillable="true"/>
+                    <element name="auction_date"      type="xsd:integer" nillable="true"/>
+                    <element name="contract_type"     type="xsd:integer" nillable="true"/>
+                    <element name="ber_rating"        type="xsd:string" nillable="true"/>
+                    <element name="ber_code"          type="xsd:string" nillable="true" />
+                    <element name="ber_epi"           type="xsd:float" nillable="true" />
+                </sequence>
+            </complexType>
+             <!-- }}} -->
+    
+            <!-- search_new_development {{{ -->
+            <element name='search_new_development'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key'  type='xsd:string' />
+                        <element name='query'    type='impl:search_query' />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <element name="search_new_developmentResponse">
+                <complexType>
+                    <sequence>
+                        <element name='results' type='impl:new_development_results' />
+                    </sequence>
+                </complexType>
+            </element>
+
+            <complexType name="new_development_results">
+                <sequence>
+                    <element name='search_sentence'  type='xsd:string' />
+                    <element name='pagination'       type='impl:pagination' />
+                    <element name='ads'              type='impl:new_development_ad' minOccurs="0" maxOccurs="unbounded" />
+                </sequence>
+            </complexType>
+    
+            <complexType name="new_development_ad">
+                <sequence>
+                    <element name="ad_id"              type="xsd:integer" nillable="true"/>
+                    <element name="daft_url"           type="xsd:string" nillable="true"/>
+
+
+                    <element name="tag_line"           type="xsd:string" nillable="true"/>
+                    <element name="location"           type="xsd:string" nillable="true"/>
+                    <element name="developer_name"     type="xsd:string" nillable="true"/>
+                    <element name="developer_info"     type="xsd:string" nillable="true"/>
+                    <element name="units_available"    type="xsd:integer" nillable="true"/>
+                    <element name="units_total"        type="xsd:integer" nillable="true"/>
+
+                    <element name="priority"            type="xsd:integer" nillable="true"/>
+                    <element name="description"         type="xsd:string" nillable="true"/>
+                    <element name="address"             type="xsd:string" nillable="true"/>
+                    <element name="full_address"        type="xsd:string" nillable="true"/>
+
+                    <element name="area"                type="xsd:string" nillable="true"/>
+                    <element name="county"              type="xsd:string" nillable="true"/>
+                    <element name="city"                type="xsd:string" nillable="true"/>
+                    <element name="general_area"        type="xsd:string" nillable="true"/>
+                    <element name="postcode"            type="xsd:string" nillable="true"/>
+                    <element name="latitude"            type="xsd:float" nillable="true"/>
+                    <element name="longitude"           type="xsd:float" nillable="true"/>
+                    <element name="latlon_accuracy"     type="xsd:integer" nillable="true"/>
+
+                    <element name="agency_name"         type="xsd:string" nillable="true"/>
+                    <element name="contact_name"        type="xsd:string" nillable="true"/>
+                    <element name="phone1"              type="xsd:string" nillable="true"/>
+                    <element name="phone2"              type="xsd:string" nillable="true"/>
+                    <element name="phoneinfo"           type="xsd:string" nillable="true"/>
+                    <element name="main_email"          type="xsd:string" nillable="true"/>
+
+                    <element name="start_date"         type="xsd:integer" nillable="true"/>
+                    <element name="listing_date"       type="xsd:integer" nillable="true"/>
+                    <element name="agreed_date"        type="xsd:integer" nillable="true"/>
+
+                    <element name="small_thumbnail_url"         type="xsd:string" nillable="true"/>
+                    <element name="medium_thumbnail_url"        type="xsd:string" nillable="true"/>
+                    <element name="large_thumbnail_url"         type="xsd:string" nillable="true"/>
+                    <element name="ipad_search_url"             type="xsd:string" nillable="true"/>
+                    <element name="ipad_gallery_url"            type="xsd:string" nillable="true"/>
+                    <element name="tags"                        type="xsd:integer" nillable="true"/>
+
+                    <element name="units"    type="impl:sale_ad" nillable="true" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+             <!-- }}} -->
+    
+            <!-- search_shortterm {{{ -->
+            <element name='search_shortterm'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key' type='xsd:string' />
+                        <element name='query'   type='impl:search_query' />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <element name="search_shorttermResponse">
+                <complexType>
+                    <sequence>
+                        <element name='results' type='impl:shortterm_results' />
+                    </sequence>
+                </complexType>
+            </element>
+
+            <complexType name="shortterm_results">
+                <sequence>
+                    <element name='search_sentence'  type='xsd:string' />
+                    <element name='pagination'       type='impl:pagination' />
+                    <element name='ads'              type='impl:shortterm_ad' minOccurs="0" maxOccurs="unbounded" />
+                </sequence>
+            </complexType>
+    
+            <complexType name="shortterm_ad">
+                <sequence>
+                    <element name="ad_id"                          type="xsd:integer" nillable="true"/>
+                    <element name="daft_url"                       type="xsd:string" nillable="true"/>
+                    <element name="property_type"                  type="xsd:string" nillable="true"/>
+                    <element name="agreed"                         type="xsd:integer" nillable="true"/>
+                    <element name="priority"                       type="xsd:integer" nillable="true"/>
+                    <element name="description"                    type="xsd:string" nillable="true"/>
+                    <element name="bedrooms"                       type="xsd:integer" nillable="true"/>
+                    <element name="bathrooms"                      type="xsd:integer" nillable="true"/>
+                    <element name="rent"                           type="xsd:integer" nillable="true"/>
+                    <element name="rent_collection_period"         type="xsd:string" nillable="true"/>
+                    <element name="features"                       type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="sleeps_number"                  type="xsd:integer" nillable="true" />
+                    <element name="single_beds"                    type="xsd:integer" nillable="true"/>
+                    <element name="double_beds"                    type="xsd:integer" nillable="true"/>
+                    <element name="twin_beds"                      type="xsd:integer" nillable="true"/>
+                    <element name="ber_rating"                     type="xsd:string" nillable="true"/>
+                    <element name="ber_code"                       type="xsd:string" nillable="true" />
+                    <element name="ber_epi"                        type="xsd:float" nillable="true" />
+                    <element name="address"                        type="xsd:string" nillable="true"/>
+                    <element name="full_address"                   type="xsd:string" nillable="true"/>
+                    <element name="area"                           type="xsd:string" nillable="true"/>
+                    <element name="county"                         type="xsd:string" nillable="true"/>
+                    <element name="city"                           type="xsd:string" nillable="true"/>
+                    <element name="general_area"                   type="xsd:string" nillable="true"/>
+                    <element name="postcode"                       type="xsd:string" nillable="true"/>
+                    <element name="latitude"                       type="xsd:float" nillable="true"/>
+                    <element name="longitude"                      type="xsd:float" nillable="true"/>
+                    <element name="latlon_accuracy"                type="xsd:integer" nillable="true"/>
+                    <element name="agency_name"                    type="xsd:string" nillable="true"/>
+                    <element name="contact_name"                   type="xsd:string" nillable="true"/>
+                    <element name="phone1"                         type="xsd:string" nillable="true"/>
+                    <element name="phone2"                         type="xsd:string" nillable="true"/>
+                    <element name="phoneinfo"                      type="xsd:string" nillable="true"/>
+                    <element name="main_email"                     type="xsd:string" nillable="true"/>
+                    <element name="start_date"                     type="xsd:integer" nillable="true"/>
+                    <element name="listing_date"                   type="xsd:integer" nillable="true"/>
+                    <element name="agreed_date"                    type="xsd:integer" nillable="true"/>
+                    <element name="available_date"                 type="xsd:integer" nillable="true"/>
+                    <element name="start_pay_date"                 type="xsd:integer" nillable="true"/>
+                    <element name="small_thumbnail_url"            type="xsd:string" nillable="true"/>
+                    <element name="medium_thumbnail_url"           type="xsd:string" nillable="true"/>
+                    <element name="large_thumbnail_url"            type="xsd:string" nillable="true"/>
+                    <element name="ipad_search_url"                type="xsd:string" nillable="true"/>
+                    <element name="ipad_gallery_url"               type="xsd:string" nillable="true"/>
+                    <element name="tags"                        type="xsd:integer" nillable="true"/>
+                </sequence>
+            </complexType>
+            <!-- }}} -->
+    
+            <!-- search_sharing {{{ -->
+            <element name='search_sharing'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key'  type='xsd:string' />
+                        <element name='query'    type='impl:search_query' />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <element name="search_sharingResponse">
+                <complexType>
+                    <sequence>
+                        <element name='results' type='impl:sharing_results' />
+                    </sequence>
+                </complexType>
+            </element>
+
+            <complexType name="sharing_results">
+                <sequence>
+                    <element name='search_sentence'  type='xsd:string' />
+                    <element name='pagination'       type='impl:pagination' />
+                    <element name='ads'              type='impl:sharing_ad' minOccurs="0" maxOccurs="unbounded" />
+                </sequence>
+            </complexType>
+
+            <complexType name="sharing_room">
+                <sequence>
+                    <element name="type"        type="xsd:string" />
+                    <element name="rent"        type="xsd:integer" nillable="true" />
+                    <element name="ensuite"     type="xsd:integer" nillable="true" />
+                </sequence>
+            </complexType>
+     
+            <complexType name="sharing_ad">
+                <sequence>
+                    <element name="ad_id"                     type="xsd:integer" nillable="true"/>
+                    <element name="daft_url"                  type="xsd:string" nillable="true"/>
+                    <element name="property_type"             type="xsd:string" nillable="true"/>
+                    <element name="agreed"                    type="xsd:integer" nillable="true"/>
+                    <element name="priority"                  type="xsd:integer" nillable="true"/>
+                    <element name="description"               type="xsd:string" nillable="true"/>
+                    <element name="bedrooms"                  type="xsd:integer" nillable="true"/>
+                    <element name="bathrooms"                 type="xsd:integer" nillable="true"/>
+                    <element name="rent"                      type="xsd:integer" nillable="true"/>
+                    <element name="rent_collection_period"    type="xsd:string" nillable="true"/>
+                    <element name="rooms"                     type="impl:sharing_room" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="features"                  type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="single_beds"               type="xsd:integer" nillable="true"/>
+                    <element name="double_beds"               type="xsd:integer" nillable="true"/>
+                    <element name="twin_beds"                 type="xsd:integer" nillable="true"/>
+                    <element name="owner_occupied"            type="xsd:integer" nillable="true" />
+                    <element name="occupants"                 type="xsd:integer" nillable="true" />
+                    <element name="gender"                    type="xsd:string" nillable="true" />
+                    <element name="couples_allowed"           type="xsd:integer" nillable="true" />
+                    <element name="available_for"             type="xsd:integer" nillable="true" />
+                    <element name="ber_rating"                type="xsd:string" nillable="true"/>
+                    <element name="ber_code"                  type="xsd:string" nillable="true" />
+                    <element name="ber_epi"                   type="xsd:float" nillable="true" />
+                    <element name="address"                   type="xsd:string" nillable="true"/>
+                    <element name="full_address"              type="xsd:string" nillable="true"/>
+                    <element name="area"                      type="xsd:string" nillable="true"/>
+                    <element name="county"                    type="xsd:string" nillable="true"/>
+                    <element name="city"                      type="xsd:string" nillable="true"/>
+                    <element name="general_area"              type="xsd:string" nillable="true"/>
+                    <element name="postcode"                  type="xsd:string" nillable="true"/>
+                    <element name="latitude"                  type="xsd:float" nillable="true"/>
+                    <element name="longitude"                 type="xsd:float" nillable="true"/>
+                    <element name="latlon_accuracy"           type="xsd:integer" nillable="true"/>
+                    <element name="agency_name"               type="xsd:string" nillable="true"/>
+                    <element name="contact_name"              type="xsd:string" nillable="true"/>
+                    <element name="phone1"                    type="xsd:string" nillable="true"/>
+                    <element name="phone2"                    type="xsd:string" nillable="true"/>
+                    <element name="phoneinfo"                 type="xsd:string" nillable="true"/>
+                    <element name="main_email"                type="xsd:string" nillable="true"/>
+                    <element name="start_date"                type="xsd:integer" nillable="true"/>
+                    <element name="listing_date"              type="xsd:integer" nillable="true"/>
+                    <element name="agreed_date"               type="xsd:integer" nillable="true"/>
+                    <element name="available_date"            type="xsd:integer" nillable="true"/>
+                    <element name="start_pay_date"            type="xsd:integer" nillable="true"/>
+                    <element name="small_thumbnail_url"       type="xsd:string" nillable="true"/>
+                    <element name="medium_thumbnail_url"      type="xsd:string" nillable="true"/>
+                    <element name="large_thumbnail_url"       type="xsd:string" nillable="true"/>
+                    <element name="ipad_search_url"           type="xsd:string" nillable="true"/>
+                    <element name="ipad_gallery_url"          type="xsd:string" nillable="true"/>
+                    <element name="tags"                      type="xsd:integer" nillable="true"/>
+                </sequence>
+            </complexType>
+             <!-- }}} -->
+    
+            <!-- search_parking {{{ -->
+            <element name='search_parking'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key'  type='xsd:string' />
+                        <element name='query'    type='impl:search_query' />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <element name="search_parkingResponse">
+                <complexType>
+                    <sequence>
+                        <element name='results' type='impl:parking_results' />
+                    </sequence>
+                </complexType>
+            </element>
+
+            <complexType name="parking_results">
+                <sequence>
+                    <element name='search_sentence'  type='xsd:string' />
+                    <element name='pagination'       type='impl:pagination' />
+                    <element name='ads'              type='impl:parking_ad' minOccurs="0" maxOccurs="unbounded" />
+                </sequence>
+            </complexType>
+     
+            <complexType name="parking_ad">
+                <sequence>
+                    <element name="ad_id"                     type="xsd:integer" nillable="true"/>
+                    <element name="daft_url"                  type="xsd:string" nillable="true"/>
+                    <element name="property_type"             type="xsd:string" nillable="true"/>
+                    <element name="agreed"                    type="xsd:integer" nillable="true"/>
+                    <element name="priority"                  type="xsd:integer" nillable="true"/>
+                    <element name="description"               type="xsd:string" nillable="true"/>
+                    <element name="rent"                      type="xsd:integer" nillable="true"/>
+                    <element name="access"                    type="xsd:string" nillable="true"/>
+                    <element name="spaces_available"          type="xsd:string" nillable="true"/>
+                    <element name="address"                   type="xsd:string" nillable="true"/>
+                    <element name="full_address"              type="xsd:string" nillable="true"/>
+                    <element name="area"                      type="xsd:string" nillable="true"/>
+                    <element name="county"                    type="xsd:string" nillable="true"/>
+                    <element name="city"                      type="xsd:string" nillable="true"/>
+                    <element name="general_area"              type="xsd:string" nillable="true"/>
+                    <element name="postcode"                  type="xsd:string" nillable="true"/>
+                    <element name="latitude"                  type="xsd:float" nillable="true"/>
+                    <element name="longitude"                 type="xsd:float" nillable="true"/>
+                    <element name="latlon_accuracy"           type="xsd:integer" nillable="true"/>
+                    <element name="agency_name"               type="xsd:string" nillable="true"/>
+                    <element name="contact_name"              type="xsd:string" nillable="true"/>
+                    <element name="phone1"                    type="xsd:string" nillable="true"/>
+                    <element name="phone2"                    type="xsd:string" nillable="true"/>
+                    <element name="phoneinfo"                 type="xsd:string" nillable="true"/>
+                    <element name="main_email"                type="xsd:string" nillable="true"/>
+                    <element name="start_date"                type="xsd:integer" nillable="true"/>
+                    <element name="listing_date"              type="xsd:integer" nillable="true"/>
+                    <element name="agreed_date"               type="xsd:integer" nillable="true"/>
+                    <element name="available_date"            type="xsd:integer" nillable="true"/>
+                    <element name="start_pay_date"            type="xsd:integer" nillable="true"/>
+                    <element name="small_thumbnail_url"       type="xsd:string" nillable="true"/>
+                    <element name="medium_thumbnail_url"      type="xsd:string" nillable="true"/>
+                    <element name="large_thumbnail_url"       type="xsd:string" nillable="true"/>
+                    <element name="ipad_search_url"           type="xsd:string" nillable="true"/>
+                    <element name="ipad_gallery_url"          type="xsd:string" nillable="true"/>
+                    <element name="tags"                      type="xsd:integer" nillable="true"/>
+                </sequence>
+            </complexType>
+             <!-- }}} -->
+    
+            <!-- agent_info {{{ -->
+            <element name='agent_info'>
+                <complexType>
+                    <sequence>
+                        <element name='api_key'    type='xsd:string' />
+                        <element name='ad_id'      type='xsd:integer' />
+                        <element name='ad_type'    type='xsd:string' />
+                    </sequence>
+                </complexType>
+            </element>
+    
+            <element name="agent_infoResponse">
+                <complexType>
+                    <sequence>
+                        <element name='id'                             type='xsd:integer' nillable="true" />
+                        <element name='name'                           type='xsd:string' nillable="true" />
+                        <element name='address'                        type='xsd:string' nillable="true" />
+                        <element name='phone'                          type='xsd:string' nillable="true" />
+                        <element name='fax'                            type='xsd:string' nillable="true" />
+                        <element name='is_branded'                     type='xsd:integer' nillable="true" />
+                        <element name='main_logo_url'                  type='xsd:string' nillable="true" />
+                        <element name='main_logo_url_backup'           type='xsd:string' nillable="true" />
+                        <element name='branded_logo_url'               type='xsd:string' nillable="true" />
+                        <element name='branded_logo_url_backup'        type='xsd:string' nillable="true" />
+                        <element name='branded_logo_url_big'           type='xsd:string' nillable="true" />
+                        <element name='branded_logo_url_backup_big'    type='xsd:string' nillable="true" />
+                        <element name='branded_logo_rect_url'          type='xsd:string' nillable="true" />
+                        <element name='branded_logo_rect_url_backup'   type='xsd:string' nillable="true" />
+                    </sequence>
+                </complexType>
+            </element>
+            <!-- }}} -->
+    
+
+        </schema>
+    </wsdl:types>
+
+    <!-- test {{{ -->
+    <wsdl:message name='testRequest'>
+        <wsdl:part name='parameters' element='impl:test' />
+    </wsdl:message>
+    <wsdl:message name='testResponse'>
+        <wsdl:part name='parameters' element='impl:testResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+    
+    <!-- ad_types {{{ -->
+    <wsdl:message name='ad_typesRequest'>
+        <wsdl:part name='parameters' element='impl:ad_types' />
+    </wsdl:message>
+    <wsdl:message name='ad_typesResponse'>
+        <wsdl:part name='parameters' element='impl:ad_typesResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+
+    <!-- features {{{ -->
+    <wsdl:message name='featuresRequest'>
+        <wsdl:part name='parameters' element='impl:features' />
+    </wsdl:message>
+    <wsdl:message name='featuresResponse'>
+        <wsdl:part name='parameters' element='impl:featuresResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+
+    <!-- property_types {{{ -->
+    <wsdl:message name='property_typesRequest'>
+        <wsdl:part name='parameters' element='impl:property_types' />
+    </wsdl:message>
+    <wsdl:message name='property_typesResponse'>
+        <wsdl:part name='parameters' element='impl:property_typesResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+
+    <!-- areas {{{ -->
+    <wsdl:message name='areasRequest'>
+        <wsdl:part name='parameters' element='impl:areas' />
+    </wsdl:message>
+    <wsdl:message name='areasResponse'>
+        <wsdl:part name='parameters' element='impl:areasResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+
+    <!-- media {{{ -->
+    <wsdl:message name='mediaRequest'>
+        <wsdl:part name='parameters' element='impl:media' />
+    </wsdl:message>
+    <wsdl:message name='mediaResponse'>
+        <wsdl:part name='parameters' element='impl:mediaResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+
+    <!-- search_sale {{{ -->
+    <wsdl:message name='search_saleRequest'>
+        <wsdl:part name='parameters' element='impl:search_sale' />
+    </wsdl:message>
+    <wsdl:message name='search_saleResponse'>
+        <wsdl:part name='parameters' element='impl:search_saleResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+
+    <!-- search_rental {{{ -->
+    <wsdl:message name='search_rentalRequest'>
+        <wsdl:part name='parameters' element='impl:search_rental' />
+    </wsdl:message>
+    <wsdl:message name='search_rentalResponse'>
+        <wsdl:part name='parameters' element='impl:search_rentalResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+
+    <!-- search_commercial {{{ -->
+    <wsdl:message name='search_commercialRequest'>
+        <wsdl:part name='parameters' element='impl:search_commercial' />
+    </wsdl:message>
+    <wsdl:message name='search_commercialResponse'>
+        <wsdl:part name='parameters' element='impl:search_commercialResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+
+    <!-- search_new_development {{{ -->
+    <wsdl:message name='search_new_developmentRequest'>
+        <wsdl:part name='parameters' element='impl:search_new_development' />
+    </wsdl:message>
+    <wsdl:message name='search_new_developmentResponse'>
+        <wsdl:part name='parameters' element='impl:search_new_developmentResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+
+    <!-- search_shortterm {{{ -->
+    <wsdl:message name='search_shorttermRequest'>
+        <wsdl:part name='parameters' element='impl:search_shortterm' />
+    </wsdl:message>
+    <wsdl:message name='search_shorttermResponse'>
+        <wsdl:part name='parameters' element='impl:search_shorttermResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+
+    <!-- search_sharing {{{ -->
+    <wsdl:message name='search_sharingRequest'>
+        <wsdl:part name='parameters' element='impl:search_sharing' />
+    </wsdl:message>
+    <wsdl:message name='search_sharingResponse'>
+        <wsdl:part name='parameters' element='impl:search_sharingResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+
+    <!-- search_parking {{{ -->
+    <wsdl:message name='search_parkingRequest'>
+        <wsdl:part name='parameters' element='impl:search_parking' />
+    </wsdl:message>
+    <wsdl:message name='search_parkingResponse'>
+        <wsdl:part name='parameters' element='impl:search_parkingResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+
+    <!-- agent_info {{{ -->
+    <wsdl:message name='agent_infoRequest'>
+        <wsdl:part name='parameters' element='impl:agent_info' />
+    </wsdl:message>
+    <wsdl:message name='agent_infoResponse'>
+        <wsdl:part name='parameters' element='impl:agent_infoResponse' />
+    </wsdl:message>
+    <!-- }}} -->
+
+    <wsdl:portType name='DaftAPIService'>
+        <!-- test {{{ -->
+        <wsdl:operation name='test'>
+            <wsdl:input name='testRequest' message='impl:testRequest' />
+            <wsdl:output name='testResponse' message='impl:testResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- ad_types {{{ -->
+        <wsdl:operation name='ad_types'>
+            <wsdl:input name='ad_typesRequest' message='impl:ad_typesRequest' />
+            <wsdl:output name='ad_typesResponse' message='impl:ad_typesResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- features {{{ -->
+        <wsdl:operation name='features'>
+            <wsdl:input name='featuresRequest' message='impl:featuresRequest' />
+            <wsdl:output name='featuresResponse' message='impl:featuresResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- property_types {{{ -->
+        <wsdl:operation name='property_types'>
+            <wsdl:input name='property_typesRequest' message='impl:property_typesRequest' />
+            <wsdl:output name='property_typesResponse' message='impl:property_typesResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- areas {{{ -->
+        <wsdl:operation name='areas'>
+            <wsdl:input name='areasRequest' message='impl:areasRequest' />
+            <wsdl:output name='areasResponse' message='impl:areasResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- media {{{ -->
+        <wsdl:operation name='media'>
+            <wsdl:input name='mediaRequest' message='impl:mediaRequest' />
+            <wsdl:output name='mediaResponse' message='impl:mediaResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- search_sale {{{ -->
+        <wsdl:operation name='search_sale'>
+            <wsdl:input name='search_saleRequest' message='impl:search_saleRequest' />
+            <wsdl:output name='search_saleResponse' message='impl:search_saleResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- search_rental {{{ -->
+        <wsdl:operation name='search_rental'>
+            <wsdl:input name='search_rentalRequest' message='impl:search_rentalRequest' />
+            <wsdl:output name='search_rentalResponse' message='impl:search_rentalResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- search_commercial {{{ -->
+        <wsdl:operation name='search_commercial'>
+            <wsdl:input name='search_commercialRequest' message='impl:search_commercialRequest' />
+            <wsdl:output name='search_commercialResponse' message='impl:search_commercialResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- search_new_development {{{ -->
+        <wsdl:operation name='search_new_development'>
+            <wsdl:input name='search_new_developmentRequest' message='impl:search_new_developmentRequest' />
+            <wsdl:output name='search_new_developmentResponse' message='impl:search_new_developmentResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- search_shortterm {{{ -->
+        <wsdl:operation name='search_shortterm'>
+            <wsdl:input name='search_shorttermRequest' message='impl:search_shorttermRequest' />
+            <wsdl:output name='search_shorttermResponse' message='impl:search_shorttermResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+        
+        <!-- search_sharing {{{ -->
+        <wsdl:operation name='search_sharing'>
+            <wsdl:input name='search_sharingRequest' message='impl:search_sharingRequest' />
+            <wsdl:output name='search_sharingResponse' message='impl:search_sharingResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+        
+        <!-- search_parking {{{ -->
+        <wsdl:operation name='search_parking'>
+            <wsdl:input name='search_parkingRequest' message='impl:search_parkingRequest' />
+            <wsdl:output name='search_parkingResponse' message='impl:search_parkingResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+        
+        <!-- agent_info {{{ -->
+        <wsdl:operation name='agent_info'>
+            <wsdl:input name='agent_infoRequest' message='impl:agent_infoRequest' />
+            <wsdl:output name='agent_infoResponse' message='impl:agent_infoResponse' />
+        </wsdl:operation>
+        <!-- }}} -->
+    </wsdl:portType>
+
+    <wsdl:binding name='DaftAPIServiceBinding' type='impl:DaftAPIService'>
+        <wsdlsoap:binding transport='http://schemas.xmlsoap.org/soap/http' style='document' />
+
+        <!-- test {{{ -->
+        <wsdl:operation name='test'>
+            <wsdlsoap:operation soapAction='DaftAPIService#test' />
+        
+            <wsdl:input name='testRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='testResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+        
+        <!-- ad_types {{{ -->
+        <wsdl:operation name='ad_types'>
+            <wsdlsoap:operation soapAction='DaftAPIService#ad_types' />
+        
+            <wsdl:input name='ad_typesRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='ad_typesResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- features {{{ -->
+        <wsdl:operation name='features'>
+            <wsdlsoap:operation soapAction='DaftAPIService#features' />
+        
+            <wsdl:input name='featuresRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='featuresResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- property_types {{{ -->
+        <wsdl:operation name='property_types'>
+            <wsdlsoap:operation soapAction='DaftAPIService#property_types' />
+        
+            <wsdl:input name='property_typesRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='property_typesResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- areas {{{ -->
+        <wsdl:operation name='areas'>
+            <wsdlsoap:operation soapAction='DaftAPIService#areas' />
+        
+            <wsdl:input name='areasRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='areasResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- media {{{ -->
+        <wsdl:operation name='media'>
+            <wsdlsoap:operation soapAction='DaftAPIService#media' />
+        
+            <wsdl:input name='mediaRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='mediaResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- search_sale {{{ -->
+        <wsdl:operation name='search_sale'>
+            <wsdlsoap:operation soapAction='DaftAPIService#search_sale' />
+        
+            <wsdl:input name='search_saleRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='search_saleResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- search_rental {{{ -->
+        <wsdl:operation name='search_rental'>
+            <wsdlsoap:operation soapAction='DaftAPIService#search_rental' />
+        
+            <wsdl:input name='search_rentalRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='search_rentalResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- search_commercial {{{ -->
+        <wsdl:operation name='search_commercial'>
+            <wsdlsoap:operation soapAction='DaftAPIService#search_commercial' />
+        
+            <wsdl:input name='search_commercialRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='search_commercialResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- search_new_development {{{ -->
+        <wsdl:operation name='search_new_development'>
+            <wsdlsoap:operation soapAction='DaftAPIService#search_new_development' />
+        
+            <wsdl:input name='search_new_developmentRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='search_new_developmentResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- search_shortterm {{{ -->
+        <wsdl:operation name='search_shortterm'>
+            <wsdlsoap:operation soapAction='DaftAPIService#search_shortterm' />
+        
+            <wsdl:input name='search_shorttermRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='search_shorttermResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- search_sharing {{{ -->
+        <wsdl:operation name='search_sharing'>
+            <wsdlsoap:operation soapAction='DaftAPIService#search_sharing' />
+        
+            <wsdl:input name='search_sharingRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='search_sharingResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- search_parking {{{ -->
+        <wsdl:operation name='search_parking'>
+            <wsdlsoap:operation soapAction='DaftAPIService#search_parking' />
+        
+            <wsdl:input name='search_parkingRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='search_parkingResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+
+        <!-- agent_info {{{ -->
+        <wsdl:operation name='agent_info'>
+            <wsdlsoap:operation soapAction='DaftAPIService#agent_info' />
+        
+            <wsdl:input name='agent_infoRequest'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:input>
+            <wsdl:output name='agent_infoResponse'>
+                <wsdlsoap:body use='literal' />
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- }}} -->
+
+    </wsdl:binding>
+
+    <wsdl:service name='DaftAPIService'>
+        <wsdl:port binding='impl:DaftAPIServiceBinding' name='DaftAPIService'>
+            <wsdlsoap:address location='http://nginx/v2/' />
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
