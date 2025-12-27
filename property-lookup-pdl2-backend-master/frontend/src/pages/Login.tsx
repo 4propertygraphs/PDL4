@@ -24,27 +24,34 @@ function Login() {
     };
 
     return (
-        <div className="p-6 min-h-screen flex items-center justify-center">
-            <div className="shadow-md bg-white dark:bg-gray-900 rounded p-6 w-full max-w-md">
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center">Login</h2>
-                {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-                <form onSubmit={handleLogin} className="space-y-4">
+        <div className="p-6 min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-slate-50">
+            <div className="shadow-xl bg-white dark:bg-gray-900 rounded-2xl p-8 w-full max-w-md border border-gray-100 dark:border-gray-800">
+                <div className="text-center mb-8">
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Welcome Back</h2>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Sign in to your property management account</p>
+                </div>
+                {error && (
+                    <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 dark:bg-red-900/20 dark:border-red-800">
+                        <p className="text-sm text-red-600 dark:text-red-400 text-center">{error}</p>
+                    </div>
+                )}
+                <form onSubmit={handleLogin} className="space-y-5">
                     <div>
-                        <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2" htmlFor="email">
-                            Email
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" htmlFor="email">
+                            Email Address
                         </label>
                         <input
                             id="email"
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder='example@gmail.com'
-                            className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-300"
+                            placeholder='you@example.com'
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                             required
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2" htmlFor="password">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" htmlFor="password">
                             Password
                         </label>
                         <input
@@ -52,16 +59,16 @@ function Login() {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder='test1234'
-                            className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-300"
+                            placeholder='••••••••'
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                             required
                         />
                     </div>
                     <button
                         type="submit"
-                        className="w-full cursor-pointer bg-purple-500 text-white font-semibold py-2 rounded hover:bg-purple-600"
+                        className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
                     >
-                        Login
+                        Sign In
                     </button>
                 </form>
             </div>

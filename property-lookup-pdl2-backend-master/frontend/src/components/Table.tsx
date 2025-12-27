@@ -42,13 +42,13 @@ const Table = <T,>({
     return (
         <div className="w-full overflow-x-auto">
             <table className="w-full table-auto min-w-[720px]">
-                <thead className="text-gray-600 dark:text-gray-300 text-xs md:text-sm leading-normal bg-purple-50 dark:bg-gray-900 sticky top-0">
+                <thead className="text-gray-700 dark:text-gray-300 text-xs md:text-sm font-semibold leading-normal bg-gradient-to-r from-blue-50 to-slate-50 dark:from-gray-900 dark:to-gray-900 sticky top-0 border-b-2 border-blue-100 dark:border-gray-800">
                     <tr>
                         {onSelectAll && (
-                            <th className="py-3 px-4 text-left">
+                            <th className="py-4 px-4 text-left">
                                 <input
                                     id="checkbox_all"
-                                    className="w-4 h-4"
+                                    className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                     type="checkbox"
                                     onChange={onSelectAll}
                                     checked={selectedItems.length === data.length && data.length > 0}
@@ -59,15 +59,15 @@ const Table = <T,>({
                             const isActive = sortKey === column.key;
                             const arrow = renderArrow(isActive, sortDir);
                             return (
-                                <th key={String(column.key)} className={`py-3 px-4 md:px-6 text-left ${column.className || ''}`}>
+                                <th key={String(column.key)} className={`py-4 px-4 md:px-6 text-left ${column.className || ''}`}>
                                     {column.sortable ? (
                                         <button
                                             type="button"
-                                            className="flex items-center gap-1"
+                                            className="flex items-center gap-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                                             onClick={() => onHeaderClick && onHeaderClick(column.key)}
                                         >
                                             <span>{column.label}</span>
-                                            <span className="text-xs">{arrow}</span>
+                                            <span className="text-xs font-bold">{arrow}</span>
                                         </button>
                                     ) : (
                                         column.label
@@ -77,15 +77,15 @@ const Table = <T,>({
                         })}
                     </tr>
                 </thead>
-                <tbody className="text-gray-600 dark:text-gray-300 text-xs md:text-sm font-medium cursor-pointer">
+                <tbody className="text-gray-700 dark:text-gray-300 text-xs md:text-sm font-medium">
                     {isLoading ? (
                         <tr>
                             <td colSpan={columns.length + (onSelectAll ? 1 : 0)} className="py-3 px-6">
-                                <div className="animate-pulse">
+                                <div className="animate-pulse space-y-3">
                                     {Array.from({ length: 10 }).map((_, index) => (
                                         <div
                                             key={index}
-                                            className="h-10 bg-gray-300 dark:bg-gray-700 rounded mb-2"
+                                            className="h-12 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:from-gray-700 dark:via-gray-800 dark:to-gray-700 rounded-lg"
                                             style={{ width: '100%' }}
                                         ></div>
                                     ))}
@@ -94,27 +94,28 @@ const Table = <T,>({
                         </tr>
                     ) : (!Array.isArray(data) || data.length === 0) ? (
                         <tr>
-                            <td colSpan={columns.length + (onSelectAll ? 1 : 0)} className="py-3 px-6 text-center">
-                                <div className="h-10 flex items-center justify-center text-gray-500 dark:text-gray-400">
-                                    No data available.
+                            <td colSpan={columns.length + (onSelectAll ? 1 : 0)} className="py-12 px-6 text-center">
+                                <div className="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400">
+                                    <p className="text-base font-medium">No data available</p>
+                                    <p className="text-sm mt-1">Try adjusting your filters or search criteria</p>
                                 </div>
                             </td>
                         </tr>
                     ) : (
                         data.map((item, index) => {
                             const rawKey = (item as any)?.[keyField as string];
-                            const rowKey = rawKey ?? index; // fallback to index to avoid missing keys
+                            const rowKey = rawKey ?? index;
                             return (
                                 <tr
                                     key={String(rowKey)}
-                                    className="border-b border-gray-200 dark:border-gray-700"
+                                    className="border-b border-gray-100 dark:border-gray-800 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 cursor-pointer transition-colors"
                                     onClick={() => onRowClick && onRowClick(item)}
                                 >
                                     {onSelectItem && (
-                                        <td className="py-3 px-4 text-left">
+                                        <td className="py-3.5 px-4 text-left">
                                             <input
                                                 id={`checkbox_${String(rowKey)}`}
-                                                className="w-4 h-4"
+                                                className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                                 type="checkbox"
                                                 checked={selectedItems.includes(rowKey)}
                                                 onChange={() => onSelectItem(rowKey)}

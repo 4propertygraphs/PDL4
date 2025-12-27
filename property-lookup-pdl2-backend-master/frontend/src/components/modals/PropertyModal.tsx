@@ -178,40 +178,6 @@ const PropertyDetailsModal: React.FC<PropertyDetailsModalProps> = ({
         );
     };
 
-    const formatLabel = (key: string) => {
-        const map: Record<string, string> = {
-            house_location: 'Location',
-            displayaddress: 'Address',
-            addressText: 'Address',
-            house_price: 'Price',
-            priceText: 'Price',
-            pricefrequency: 'Price Frequency',
-            house_extra_info_1: 'Type',
-            house_extra_info_2: 'Notes',
-            house_extra_info_3: 'Status',
-            house_extra_info_4: 'Info',
-            house_bedrooms: 'Bedrooms',
-            house_bathrooms: 'Bathrooms',
-            house_mt_squared: 'Area (m²)',
-            floorarea: 'Area (m²)',
-            updateddate: 'Updated',
-            addeddate: 'Added',
-            agency_agent_name: 'Agent',
-            username: 'Agent',
-            useremail: 'Agent email',
-            ber_rating: 'BER rating',
-            ber_code: 'BER code',
-            ber_epi: 'BER EPI',
-            ber: 'BER',
-            description: 'Description',
-            descriptionfull: 'Description',
-            descriptionbrief: 'Description',
-        };
-        const cleaned = key.replace(/_/g, ' ');
-        const pretty = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
-        return map[key] || pretty;
-    };
-
     const shouldSkip = (value: any) => {
         if (value === null || value === undefined) return true;
         if (typeof value === 'string' && value.trim() === '') return true;

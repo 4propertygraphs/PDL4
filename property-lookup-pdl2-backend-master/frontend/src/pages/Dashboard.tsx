@@ -62,29 +62,29 @@ function Dashboard() {
 
   return (
     <div className="p-6 min-h-screen space-y-6">
-      <div className="shadow-md bg-white dark:bg-gray-900 rounded p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">API status</h2>
+      <div className="shadow-lg bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-100 dark:border-gray-800">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">API Status</h2>
           <button
             type="button"
-            className="px-3 py-2 rounded bg-purple-600 text-white font-semibold hover:bg-purple-700"
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
             onClick={() => navigate('/admin-overview')}
           >
-            Open admin overview
+            Open Admin Overview
           </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {feeds.map((feed) => (
             <div
               key={feed.name}
-              className={`border rounded p-3 flex items-center gap-3 ${feed.color} bg-opacity-60`}
+              className={`border-2 rounded-xl p-4 flex items-center gap-3 ${feed.color} transition-all duration-200 hover:shadow-md`}
             >
-              <div className="w-12 h-12 rounded bg-gray-100 border border-gray-200 overflow-hidden flex items-center justify-center">
+              <div className="w-14 h-14 rounded-lg bg-white border border-gray-200 overflow-hidden flex items-center justify-center shadow-sm">
                 <img src={feed.icon} alt={feed.name} className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col">
-                <span className="font-semibold">{feed.name}</span>
-                <span className="text-sm">Status: {feed.status}</span>
+                <span className="font-bold text-base">{feed.name}</span>
+                <span className="text-sm font-medium">Status: {feed.status}</span>
               </div>
             </div>
           ))}
@@ -92,10 +92,10 @@ function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="shadow-md bg-white dark:bg-gray-900 rounded p-6 space-y-4 flex flex-col lg:items-start lg:justify-start">
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">Property change calendar</h2>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            Quick view of uploads/changes per day. Click a date to see logs.
+        <div className="shadow-lg bg-white dark:bg-gray-900 rounded-xl p-6 space-y-4 border border-gray-100 dark:border-gray-800">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Property Change Calendar</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Quick view of uploads and changes per day. Click a date to see detailed logs.
           </p>
           <div className="w-full max-w-[360px]">
             <Calendar
@@ -105,33 +105,45 @@ function Dashboard() {
               onDayClick={(date) => setSelectedDate(date)}
             />
           </div>
-          <div className="mt-3 space-y-2 w-full max-w-[360px]">
-            <div className="text-sm font-semibold text-gray-700 dark:text-gray-200">
+          <div className="mt-4 space-y-3 w-full max-w-[360px]">
+            <div className="text-sm font-bold text-gray-900 dark:text-gray-100">
               Logs {selectedDate ? `for ${selectedDate}` : '(select a date)'}
             </div>
             {isLogsLoading && (
               <div className="text-sm text-gray-500 dark:text-gray-400">Loading logs...</div>
             )}
-            {selectedLogs.length === 0 && (
+            {!isLogsLoading && selectedLogs.length === 0 && (
               <div className="text-sm text-gray-500 dark:text-gray-400">No logs for this date.</div>
             )}
             {selectedLogs.map((log, idx) => (
               <div
                 key={idx}
-                className="p-3 rounded border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-200"
+                className="p-3 rounded-lg border border-blue-100 dark:border-blue-900/30 bg-blue-50/50 dark:bg-blue-900/10 text-sm text-gray-700 dark:text-gray-300"
               >
                 {log.note}
               </div>
             ))}
           </div>
         </div>
-        <div className="shadow-md bg-white dark:bg-gray-900 rounded p-6">
-          <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-300 mb-2">Admin view includes</h3>
-          <ul className="list-disc ml-5 space-y-1 text-sm text-gray-600 dark:text-gray-300">
-            <li>Pipeline dashboard (sources, schedules, toggles).</li>
-            <li>Live monitor (current runs, countdown, statuses).</li>
-            <li>In-time logs and error board with filters.</li>
-            <li>AI orchestrators: statistics, comparing fetched properties vs. live web, anomalies.</li>
+        <div className="shadow-lg bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-100 dark:border-gray-800">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Admin View Features</h3>
+          <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+            <li className="flex items-start gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 flex-shrink-0"></span>
+              <span>Pipeline dashboard with sources, schedules, and toggles</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 flex-shrink-0"></span>
+              <span>Live monitor showing current runs, countdown, and statuses</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 flex-shrink-0"></span>
+              <span>Real-time logs and error board with advanced filters</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 flex-shrink-0"></span>
+              <span>AI orchestrators: statistics, property comparison vs. live web, anomaly detection</span>
+            </li>
           </ul>
         </div>
       </div>

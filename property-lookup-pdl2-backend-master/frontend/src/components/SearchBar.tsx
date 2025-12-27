@@ -31,21 +31,21 @@ const SearchBarModal: React.FC<SearchBarModalProps> = ({
 }) => {
     return (
         <>
-            <div className="w-full px-4 py-2">
-                <div className="shadow-md w-full bg-white dark:bg-gray-900 dark:text-gray-300 p-4 rounded">
+            <div className="w-full px-4 py-3">
+                <div className="shadow-lg w-full bg-white dark:bg-gray-900 dark:text-gray-300 p-5 rounded-xl border border-gray-100 dark:border-gray-800">
                     <div className="flex justify-between items-center">
-                        <h1 className="text-lg font-medium">
+                        <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">
                             {title}
                         </h1>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                             {onFilterChange && (
                                 <select
-                                    className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 text-sm bg-white dark:bg-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                    className="border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                                     value={filterValue}
                                     onChange={onFilterChange}
                                     title="Filter by connector"
                                 >
-                                    <option value="all">All</option>
+                                    <option value="all">All Connectors</option>
                                     <option value="acquaint">Acquaint</option>
                                     <option value="myhome">MyHome</option>
                                     <option value="daft">Daft</option>
@@ -55,7 +55,11 @@ const SearchBarModal: React.FC<SearchBarModalProps> = ({
                             )}
                             {onToggleAutoSync && (
                                 <button
-                                    className={`px-3 py-2 text-sm rounded border ${autoSyncEnabled ? 'border-purple-500 text-purple-600' : 'border-gray-300 text-gray-700'} hover:border-purple-500`}
+                                    className={`px-4 py-2 text-sm rounded-lg border font-medium transition-all ${
+                                        autoSyncEnabled
+                                            ? 'border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+                                            : 'border-gray-300 text-gray-700 hover:border-blue-500 dark:border-gray-700 dark:text-gray-300'
+                                    }`}
                                     onClick={onToggleAutoSync}
                                     title="Start/Stop auto sync"
                                 >
@@ -63,15 +67,15 @@ const SearchBarModal: React.FC<SearchBarModalProps> = ({
                                 </button>
                             )}
                             {nextSyncLabel && (
-                                <span className="text-xs text-gray-500 dark:text-gray-400">{nextSyncLabel}</span>
+                                <span className="text-xs font-medium text-gray-600 dark:text-gray-400 px-2">{nextSyncLabel}</span>
                             )}
-                            {onRefresh && ( // Conditionally render refresh button
+                            {onRefresh && (
                                 <button
-                                    className="p-2 text-black dark:text-gray-300 transition-colors cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
+                                    className="p-2.5 text-gray-700 dark:text-gray-300 transition-all cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg"
                                     onClick={onRefresh}
-                                    title="Refresh Agencies"
+                                    title="Refresh"
                                 >
-                                    <FaSyncAlt className="text-xl" />
+                                    <FaSyncAlt className="text-lg" />
                                 </button>
                             )}
                             {rightSlot}
@@ -85,12 +89,12 @@ const SearchBarModal: React.FC<SearchBarModalProps> = ({
                     <input
                         id="search"
                         type="text"
-                        className="shadow-md w-full bg-white dark:bg-gray-900 dark:text-gray-300 p-4 pl-12 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
-                        placeholder={placeholder} // Updated placeholder
+                        className="shadow-lg w-full bg-white dark:bg-gray-900 dark:text-gray-300 p-4 pl-12 rounded-xl border border-gray-200 dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        placeholder={placeholder}
                         value={searchText}
                         onChange={onSearchChange}
                     />
-                    <span className="absolute left-4 text-gray-500 dark:text-gray-300">
+                    <span className="absolute left-4 text-gray-400 dark:text-gray-500">
                         <FaSearch />
                     </span>
                 </div>

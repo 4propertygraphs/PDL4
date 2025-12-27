@@ -245,40 +245,43 @@ function Agencies() {
                 }
             />
 
-            <div className="flex-1 overflow-hidden px-3 py-2">
-                <div className="h-full overflow-y-auto overflow-x-hidden shadow-md bg-white dark:bg-gray-900 rounded">
+            <div className="flex-1 overflow-hidden px-4 py-2">
+                <div className="h-full overflow-y-auto overflow-x-hidden shadow-lg bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800">
                     {isLoading ? (
-                        <div className="p-4 text-center text-gray-600 dark:text-gray-300">Loading agencies...</div>
+                        <div className="p-8 text-center">
+                            <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-gray-200 border-t-blue-600"></div>
+                            <p className="mt-4 text-gray-600 dark:text-gray-300 font-medium">Loading agencies...</p>
+                        </div>
                     ) : (
-                        <div className="p-3 h-full space-y-3">
-                            <div className={isMobile ? 'space-y-3' : 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'}>
+                        <div className="p-4 h-full">
+                            <div className={isMobile ? 'space-y-4' : 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'}>
                                 {filteredAgencies.map((agency: Agency) => (
                                     <div
                                         key={agency.id}
-                                        className="bg-white dark:bg-gray-800 shadow-sm rounded p-4 cursor-pointer hover:shadow-lg transition-shadow border border-gray-100 dark:border-gray-700"
+                                        className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 shadow-md hover:shadow-xl rounded-xl p-5 cursor-pointer transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 hover:-translate-y-1"
                                         onClick={() => handleAgencyClick(agency)}
                                     >
-                                        <div className="flex justify-between items-start gap-2">
-                                            <div>
-                                                <h2 className="text-base md:text-lg font-semibold text-gray-800 dark:text-gray-200 leading-tight">{agency.name}</h2>
-                                                <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1">{agency.address}</p>
+                                        <div className="flex justify-between items-start gap-2 mb-3">
+                                            <div className="flex-1">
+                                                <h2 className="text-base md:text-lg font-bold text-gray-900 dark:text-gray-100 leading-tight mb-1">{agency.name}</h2>
+                                                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{agency.address}</p>
                                             </div>
                                             <button
-                                                className="text-purple-500 cursor-pointer underline text-xs md:text-sm"
+                                                className="text-blue-600 dark:text-blue-400 cursor-pointer font-semibold text-xs md:text-sm hover:underline flex-shrink-0"
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     openModal('agency', agency);
                                                 }}
                                             >
-                                                Show
+                                                Details
                                             </button>
                                         </div>
-                                        <div className="flex items-center gap-2 mt-3 flex-wrap">
+                                        <div className="flex items-center gap-2 mt-4 flex-wrap pt-3 border-t border-gray-200 dark:border-gray-700">
                                             {integrationIcons(agency).map((item) =>
                                                 item.src ? (
                                                     <span
                                                         key={item.key}
-                                                        className="h-9 w-9 flex items-center justify-center rounded border border-gray-200 dark:border-gray-700 bg-white"
+                                                        className="h-10 w-10 flex items-center justify-center rounded-lg border-2 border-blue-100 dark:border-blue-900/30 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
                                                         title={item.title}
                                                     >
                                                         <img
@@ -290,10 +293,10 @@ function Agencies() {
                                                 ) : item.IconComp ? (
                                                     <span
                                                         key={item.key}
-                                                        className="h-9 w-9 flex items-center justify-center rounded border border-gray-200 dark:border-gray-700 bg-white"
+                                                        className="h-10 w-10 flex items-center justify-center rounded-lg border-2 border-blue-100 dark:border-blue-900/30 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
                                                         title={item.title}
                                                     >
-                                                        <item.IconComp className="text-indigo-500" />
+                                                        <item.IconComp className="text-blue-600 dark:text-blue-400 text-xl" />
                                                     </span>
                                                 ) : null
                                             )}
